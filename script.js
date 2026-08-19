@@ -1,5 +1,5 @@
 // URL DE GOOGLE APPS SCRIPT (Reemplaza con tu nuevo link)
-const GOOGLE_SCRIPT_URL = "AQUI_PONDRAS_EL_LINK_DE_TU_NUEVO_APPS_SCRIPT";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzYNn6JvsbjCmB5D4Eg9w1nZ-oL3-Dd6a2enJYHopNSvMitPR5I6ScK_aC6DnBWCML0/exec";
 
 const inventario = [
     // BODEGA

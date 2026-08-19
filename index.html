@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Pedidos e Inventario</title>
-    <!-- Enlace al archivo CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,23 +14,27 @@
         <button class="tab-btn" onclick="cambiarVista('comprador')">🛒 Vista Comprador</button>
     </div>
 
-    <!-- BOTÓN DE PRUEBA -->
-    <button onclick="forzarReseteo()" style="background: red; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer; margin-bottom: 20px; width: 100%;">🔴 FORZAR RESETEO (MODO PRUEBA)</button>
+    <!-- BOTONES DE PRUEBA Y ADMIN -->
+    <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+        <button onclick="forzarReseteo()" style="background: #e74c3c; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer; flex: 1;">🔴 RESETEAR HOY</button>
+        <button onclick="desbloquearBotones()" style="background: #f39c12; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer; flex: 1;">🔓 DESBLOQUEAR BOTONES</button>
+    </div>
 
     <!-- VISTA COCINERO -->
     <div id="vista-cocinero" class="view-section active">
         <h2>Seleccionar Productos Necesarios</h2>
-        <input type="text" id="buscador" placeholder="Buscar producto..." onkeyup="filtrarProductos()">
+        <input type="text" id="buscador-cocinero" placeholder="Buscar producto..." onkeyup="filtrarProductosCocinero()">
         <div id="contenedor-productos-cocinero"></div>
-        <button class="btn-action" onclick="abrirModal()">Guardar Pedido del Día</button>
+        <button id="btn-guardar-cocinero" class="btn-action" onclick="abrirModal()">Guardar Pedido del Día</button>
     </div>
 
     <!-- VISTA COMPRADOR -->
     <div id="vista-comprador" class="view-section">
         <h2>Productos Solicitados por Cocina</h2>
-        <p>Marca únicamente los productos que <b>SÍ</b> se compraron.</p>
+        <p>Marca los productos comprados. Los no marcados se guardarán como NO COMPRADOS.</p>
+        <input type="text" id="buscador-comprador" placeholder="Buscar producto para comprar..." onkeyup="filtrarProductosComprador()">
         <div id="contenedor-productos-comprador"></div>
-        <button class="btn-action" onclick="guardarCompraFinal()">Guardar Registro de Compra</button>
+        <button id="btn-guardar-comprador" class="btn-action" onclick="guardarCompraFinal()">Guardar Registro de Compra</button>
     </div>
 </div>
 
@@ -47,7 +50,6 @@
     </div>
 </div>
 
-<!-- Enlace al archivo JavaScript -->
 <script src="script.js"></script>
 </body>
 </html>

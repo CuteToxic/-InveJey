@@ -184,6 +184,17 @@ function guardarCompraFinal() {
     });
 }
 
+// FUNCIÓN PARA MODO DE PRUEBA
+function forzarReseteo() {
+    if(confirm("¿Estás seguro de que quieres limpiar todo el pedido de hoy?")) {
+        localStorage.removeItem('pedidoDelDia');
+        localStorage.removeItem('fechaApp');
+        pedidoConfirmado = [];
+        alert("Sistema reseteado. La página se recargará.");
+        location.reload(); // Recarga la página para aplicar los cambios
+    }
+}
+
 // Inicializar
 checkResetMedianoche();
 renderCocinero();

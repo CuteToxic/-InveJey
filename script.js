@@ -238,7 +238,7 @@ function forzarReseteo() {
 function desbloquearBotones() {
     const pass = prompt("Acción de Administrador: Ingresa la contraseña para desbloquear los botones de envío (Ej. '1234')");
     // Aquí puedes cambiar "1234" por la contraseña que quieras
-    if (pass === "1234") {
+    if (pass === "DESBLOQUEAR12345") {
         localStorage.removeItem('bloqueo-cocinero');
         localStorage.removeItem('bloqueo-comprador');
         alert("Botones desbloqueados. Las vistas se actualizarán.");

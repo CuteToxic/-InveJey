@@ -3,41 +3,69 @@
     --secondary: #27ae60;
     --bg-color: #ecf0f1;
     --text-color: #333;
+    --border-radius: 8px; /* Bordes un poco más suaves */
+}
+
+/* Reset básico para que todo se vea igual en todos los navegadores */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body { 
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; /* Fuentes más estándar en móviles */
     background-color: var(--bg-color); 
     color: var(--text-color); 
-    margin: 0; 
-    padding: 20px; 
+    line-height: 1.6;
+    /* Reducimos el padding lateral en el body para ganar espacio en móviles */
+    padding: 10px; 
 }
 
 .container { 
     max-width: 800px; 
-    margin: auto; 
+    margin: 10px auto; /* Centrado con un pequeño margen arriba/abajo */
     background: white; 
     padding: 20px; 
-    border-radius: 10px; 
+    border-radius: var(--border-radius); 
     box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
 }
 
+h2 {
+    margin-bottom: 15px;
+    font-size: 1.5rem; /* Tamaño de título adaptable */
+    color: var(--primary);
+}
+
+p {
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+    color: #666;
+}
+
+/* --- PESTAÑAS (TABS) --- */
 .tabs { 
     display: flex; 
-    gap: 10px; 
+    gap: 8px; 
     margin-bottom: 20px; 
 }
 
 .tab-btn { 
     flex: 1; 
-    padding: 15px; 
+    /* Aumentamos padding vertical para que sea más fácil tocar con el dedo */
+    padding: 18px 10px; 
     border: none; 
     background: #bdc3c7; 
-    font-size: 16px; 
+    font-size: 1rem; /* Un poco más grande para legibilidad */
     font-weight: bold; 
     cursor: pointer; 
-    border-radius: 5px; 
-    transition: 0.3s; 
+    border-radius: var(--border-radius); 
+    transition: background 0.3s ease, color 0.3s ease;
+    /* Centrar contenido si el texto se corta */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 .tab-btn.active { 
@@ -45,6 +73,7 @@ body {
     color: white; 
 }
 
+/* --- SECCIONES DE VISTA --- */
 .view-section { 
     display: none; 
 }
@@ -53,67 +82,118 @@ body {
     display: block; 
 }
 
+/* --- BUSCADOR --- */
 input[type="text"] { 
     width: 100%; 
-    padding: 12px; 
+    padding: 15px; /* Más alto para móviles */
     margin-bottom: 20px; 
-    border: 1px solid #ccc; 
-    border-radius: 5px; 
-    box-sizing: border-box; 
-    font-size: 16px; 
+    border: 2px solid #ddd; /* Borde un poco más grueso y visible */
+    border-radius: var(--border-radius); 
+    font-size: 1rem; 
+    transition: border-color 0.3s;
 }
 
+input[type="text"]:focus {
+    border-color: var(--secondary);
+    outline: none;
+}
+
+/* --- LISTADO DE PRODUCTOS --- */
 .category { 
-    margin-top: 20px; 
-    margin-bottom: 10px; 
+    margin-top: 25px; 
+    margin-bottom: 12px; 
     border-bottom: 2px solid var(--primary); 
     color: var(--primary); 
-    padding-bottom: 5px; 
+    padding-bottom: 8px; 
+    font-size: 1.2rem;
+    text-transform: uppercase; /* Para que resalte más */
+    letter-spacing: 1px;
 }
 
 .product-list { 
     display: grid; 
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
-    gap: 10px; 
+    /* Esta regla es clave: crea columnas de al menos 160px. 
+       En móviles pequeños pondrá 2 columnas, en grandes 3 o más. */
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); 
+    gap: 12px; 
 }
 
+/* --- ITEM DE PRODUCTO (Label) --- */
 .product-item { 
     background: #f9f9f9; 
-    padding: 10px; 
-    border-radius: 5px; 
+    padding: 15px; /* Más padding interno para tocar fácilmente */
+    border-radius: var(--border-radius); 
     display: flex; 
     align-items: center; 
-    gap: 10px; 
+    gap: 12px; 
     border: 1px solid #eee; 
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    user-select: none; /* Evita seleccionar texto al tocar rápido */
+    -webkit-tap-highlight-color: transparent; /* Quita el flash azul feo al tocar en móvil */
 }
 
+/* Efecto visual al tocar (feedback) */
+.product-item:active {
+    transform: scale(0.98);
+    background: #f0f0f0;
+}
+
+.product-item input[type="checkbox"] {
+    /* Hacemos el checkbox más grande para móviles */
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: var(--secondary); /* Color personalizado para el check */
+}
+
+.prod-name {
+    font-size: 0.95rem;
+    word-break: break-word; /* Evita que nombres largos rompan el diseño */
+}
+
+/* Estilo para productos ya pedidos (deshabilitados) */
 .product-item.disabled { 
-    background: #dff9fb; 
-    color: #535c68; 
+    background: #e8f8f5; /* Un tono verde muy suave */
+    color: #7f8c8d; 
     text-decoration: line-through; 
-    pointer-events: none; 
-    border-color: #c7ecee; 
+    pointer-events: none; /* No se puede tocar */
+    border-color: #d1f2eb; 
 }
 
+/* --- BOTONES DE ACCIÓN PRINCIPALES --- */
 .btn-action { 
     display: block; 
     width: 100%; 
-    padding: 15px; 
-    margin-top: 20px; 
+    padding: 18px; /* Botón alto y fácil de pulsar */
+    margin-top: 30px; 
     background: var(--secondary); 
     color: white; 
     border: none; 
-    border-radius: 5px; 
-    font-size: 18px; 
-    cursor: pointer; 
+    border-radius: var(--border-radius); 
+    font-size: 1.1rem; 
     font-weight: bold; 
+    cursor: pointer; 
+    transition: background 0.3s, transform 0.1s;
+    box-shadow: 0 4px 0px #1e8449; /* Efecto 3D simple */
 }
 
 .btn-action:hover { 
     background: #219150; 
 }
 
-/* Modal Styles */
+.btn-action:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0px #1e8449;
+}
+
+.btn-action:disabled {
+    background: #bdc3c7;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+/* --- MODAL (Responsive) --- */
 .modal { 
     display: none; 
     position: fixed; 
@@ -121,43 +201,138 @@ input[type="text"] {
     left: 0; 
     width: 100%; 
     height: 100%; 
-    background: rgba(0,0,0,0.5); 
+    background: rgba(0,0,0,0.7); /* Fondo un poco más oscuro para contrastar */
     justify-content: center; 
     align-items: center; 
+    z-index: 1000; /* Asegurar que esté encima de todo */
+    padding: 15px; /* Espacio para que el modal no pegue a los bordes */
 }
 
 .modal-content { 
     background: white; 
-    padding: 20px; 
-    border-radius: 10px; 
-    width: 90%; 
-    max-width: 500px; 
-    max-height: 80vh; 
-    overflow-y: auto; 
+    padding: 25px; 
+    border-radius: 12px; 
+    width: 100%; /* Ocupa todo el ancho disponible */
+    max-width: 500px; /* Pero no más de 500px */
+    max-height: 90vh; /* No más alto que el 90% de la pantalla */
+    overflow-y: auto; /* Scroll si la lista de productos es muy larga */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.modal-content h3 {
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+    color: var(--primary);
+}
+
+#lista-resumen-pedido {
+    list-style-position: inside;
+    margin-bottom: 20px;
+    color: #555;
+    font-size: 0.95rem;
+}
+
+#lista-resumen-pedido li {
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
 }
 
 .modal-buttons { 
     display: flex; 
     gap: 10px; 
-    margin-top: 20px; 
+    margin-top: 25px; 
+}
+
+/* Botones dentro del modal un poco más altos también */
+.modal-buttons button {
+    padding: 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    flex: 1;
+    border: none;
+    transition: background 0.3s;
 }
 
 .btn-confirm { 
     background: var(--secondary); 
     color: white; 
-    border: none; 
-    padding: 10px; 
-    flex: 1; 
-    border-radius: 5px; 
-    cursor: pointer; 
 }
+
+.btn-confirm:hover { background: #219150; }
 
 .btn-cancel { 
     background: #e74c3c; 
     color: white; 
-    border: none; 
-    padding: 10px; 
-    flex: 1; 
-    border-radius: 5px; 
-    cursor: pointer; 
+}
+.btn-cancel:hover { background: #c0392b; }
+
+
+/* =========================================
+   MEDIA QUERIES - Ajustes específicos para 
+   pantallas muy pequeñas (menos de 480px)
+   ========================================= */
+
+@media (max-width: 480px) {
+    body {
+        padding: 5px; /* Casi nada de borde exterior */
+    }
+
+    .container {
+        padding: 15px; /* Reducimos padding interno */
+        margin: 5px auto;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+    }
+
+    /* Ajuste de pestañas en celulares pequeños */
+    .tabs {
+        gap: 5px;
+    }
+
+    .tab-btn {
+        font-size: 0.9rem;
+        padding: 15px 5px;
+        /* Si el texto es muy largo, permite que se parta en dos líneas */
+        flex-direction: column; 
+    }
+
+    /* Reducimos un poco la cuadrícula para que entren 2 items cómodamente */
+    .product-list {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 8px;
+    }
+
+    .product-item {
+        padding: 12px;
+        gap: 8px;
+    }
+
+    .prod-name {
+        font-size: 0.85rem; /* Texto un poco más pequeño */
+    }
+
+    /* Botones principales un poco menos altos */
+    .btn-action {
+        padding: 16px;
+        margin-top: 20px;
+    }
+
+    /* Ajustes del modal en móvil */
+    .modal-content {
+        padding: 20px;
+    }
+
+    .modal-buttons {
+        flex-direction: column; /* Botones uno encima del otro */
+        gap: 8px;
+    }
+    
+    .modal-buttons button {
+        width: 100%;
+        flex: none;
+    }
 }
